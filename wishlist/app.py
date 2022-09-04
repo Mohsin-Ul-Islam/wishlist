@@ -9,9 +9,11 @@ from wishlist.models import Wishlist, WishlistLine
 app = FastAPI()
 uow = uow.SQLAlchemyUnitOfWork()
 
+
 @app.exception_handler(exc.NotFound)
 def handle_not_found(_, exception: exc.NotFound) -> JSONResponse:
-    return JSONResponse(content='not found!', status_code=404)
+    return JSONResponse(content="not found!", status_code=404)
+
 
 @app.get("/api/v1/users/{user_id}/wishlists")
 async def get_user_wishlists(user_id: int) -> List[Wishlist]:
