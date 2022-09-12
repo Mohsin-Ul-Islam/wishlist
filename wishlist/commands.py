@@ -6,9 +6,10 @@ def add_item_to_wishlist(
     uow: UnitOfWork, wishlist_id: int, line: WishlistLine
 ) -> Wishlist:
 
+    line.wishlist_id = wishlist_id
     with uow:
         wishlist = uow.wishlists.get(wishlist_id)
-        wishlist.lines.add(line)
+        wishlist.lines.append(line)
         return wishlist
 
 
@@ -18,5 +19,5 @@ def remove_item_from_wishlist(
 
     with uow:
         wishlist = uow.wishlists.get(wishlist_id)
-        wishlist.lines.remove(WishlistLine(line_id))
+        wishlist.lines.remove(WishlistLine(line_id, wishlist_id))
         return wishlist

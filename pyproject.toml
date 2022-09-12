@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wishlist"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Mohsin-Ul-Islam <mohsinulislam180@gmail.com>"]
 

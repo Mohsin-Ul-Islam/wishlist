@@ -7,7 +7,7 @@ from wishlist import models
 
 engine = create_engine(environ["DATABASE_URL"])
 
-DEFAULT_SESSION_FACTORY = sessionmaker(bind=engine)
+DEFAULT_SESSION_FACTORY = sessionmaker(bind=engine, expire_on_commit=False)
 
 mapper_registry = registry()
 
@@ -42,7 +42,12 @@ mapper_registry.map_imperatively(
     models.Wishlist,
     wishlist_table,
     properties={
-        "lines": relationship(models.WishlistLine, lazy="joined", collection_class=set)
+        "lines": relationship(
+            models.WishlistLine,
+            lazy="joined",
+            collection_class=list,
+            cascade="all, delete-orphan",
+        )
     },
 )
 mapper_registry.map_imperatively(models.WishlistLine, wishlist_line_table)

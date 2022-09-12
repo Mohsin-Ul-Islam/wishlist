@@ -10,6 +10,8 @@ database = Postgresql()
 
 def pytest_sessionstart(session):
     database.start()
+
+    environ["JWT_SECRET"] = "s3cr3t"
     environ["DATABASE_URL"] = database.url()
 
 
